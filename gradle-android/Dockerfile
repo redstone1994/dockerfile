@@ -1,0 +1,53 @@
+FROM adoptopenjdk:8-jdk-hotspot
+LABEL maintainer="leejc1994@gmail.com"
+
+CMD ["gradle"]
+VOLUME /root/.gradle
+WORKDIR /home/gradle
+
+#禁止tzdata安装时交互
+ENV DEBIAN_FRONTEND noninteractive
+
+RUN apt-get update \
+    && apt-get install --yes --no-install-recommends \
+        fontconfig \
+        unzip \
+        wget \
+        git \
+        openssh-client \
+        tzdata \
+    && rm -rf /var/lib/apt/lists/*
+
+
+ENV TZ=Asia/Shanghai
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+RUN dpkg-reconfigure -f noninteractive tzdata
+
+ENV GRADLE_VERSION 5.5.1
+ENV GRADLE_HOME /opt/gradle-${GRADLE_VERSION}
+ENV PATH ${GRADLE_HOME}/bin:$PATH
+
+ARG GRADLE_DOWNLOAD_SHA256=222a03fcf2fcaf3691767ce9549f78ebd4a77e73f9e23a396899fb70b420cd00
+RUN set -o errexit -o nounset \
+    && wget --no-check-certificate --no-verbose --output-document=gradle.zip "https://services.gradle.org/distributions/gradle-${GRADLE_VERSION}-bin.zip" \
+    && echo "${GRADLE_DOWNLOAD_SHA256} *gradle.zip" | sha256sum --check - \
+    && unzip gradle.zip \
+    && rm gradle.zip \
+    && mv "gradle-${GRADLE_VERSION}" "/opt/"
+
+
+RUN set -o errexit -o nounset \
+    && wget --no-check-certificate --no-verbose --output-document=android-sdk.tar "https://dl.google.com/android/android-sdk_r24.4.1-linux.tgz?utm_source=androiddevtools&utm_medium=website" \
+    && tar -xzf android-sdk.tar \
+    && rm android-sdk.tar \
+    && mv "android-sdk-linux" "/opt/"
+
+ENV ANDROID_HOME /opt/android-sdk-linux
+ENV ANDROID_SDK_ROOT /opt/android-sdk-linux
+ENV PATH ${ANDROID_SDK_ROOT}/tools:$PATH
+ENV PATH ${ANDROID_SDK_ROOT}/platform-tools:$PATH
+ENV PATH ${ANDROID_SDK_ROOT}:$PATH
+ENV PATH ${ANDROID_HOME}:$PATH
+
+RUN echo y | android update sdk -u --all --filter 1,2,6,51
+#RUN y | ${ANDROID_SDK_ROOT}/tools/bin/sdkmanager --licenses
