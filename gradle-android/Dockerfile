@@ -32,7 +32,7 @@ RUN set -o errexit -o nounset \
     && wget --no-check-certificate --no-verbose --output-document=gradle.zip "https://services.gradle.org/distributions/gradle-${GRADLE_VERSION}-bin.zip" \
     && echo "${GRADLE_DOWNLOAD_SHA256} *gradle.zip" | sha256sum --check - \
     && unzip -q gradle.zip \
-    && rm gradle.zip \
+    && rm -rf gradle.zip \
     && mv "gradle-${GRADLE_VERSION}" "/opt/"
 
 
