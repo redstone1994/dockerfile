@@ -41,7 +41,7 @@ RUN set -o errexit -o nounset \
     && unzip -q sdk-tools-linux-4333796.zip\
     && rm -rf sdk-tools-linux-4333796.zip \
     && mkdir -p /opt/android-sdk-linux \
-    && mv "tools" "/opt/android-sdk-linux/tools"
+    && mv "tools" "/opt/android-sdk-linux/"
 
 #ENV ANDROID_HOME /opt/android-sdk-linux
 #ENV PATH ${ANDROID_HOME}:$PATH
