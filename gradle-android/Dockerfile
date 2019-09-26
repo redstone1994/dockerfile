@@ -40,7 +40,8 @@ RUN set -o errexit -o nounset \
     && wget --no-check-certificate --no-verbose --output-document=sdk-tools-linux-4333796.zip "https://dl.google.com/android/repository/sdk-tools-linux-4333796.zip" \
     && unzip -q sdk-tools-linux-4333796.zip\
     && rm -rf sdk-tools-linux-4333796.zip \
-    && mv "tools" "/opt/android-sdk-linux"
+    && mkdir -p /opt/android-sdk-linux \
+    && mv "tools" "/opt/android-sdk-linux/tools"
 
 #ENV ANDROID_HOME /opt/android-sdk-linux
 #ENV PATH ${ANDROID_HOME}:$PATH
