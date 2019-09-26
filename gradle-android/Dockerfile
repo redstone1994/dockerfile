@@ -49,5 +49,6 @@ ENV PATH ${ANDROID_SDK_ROOT}/platform-tools:$PATH
 ENV PATH ${ANDROID_SDK_ROOT}:$PATH
 ENV PATH ${ANDROID_HOME}:$PATH
 
+RUN android list sdk --all
 RUN echo y | android update sdk -u --all --filter 1,2,6,51
-#RUN y | ${ANDROID_SDK_ROOT}/tools/bin/sdkmanager --licenses
+#RUN echo y | ${ANDROID_SDK_ROOT}/tools/bin/sdkmanager --licenses
