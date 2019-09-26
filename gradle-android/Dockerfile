@@ -48,10 +48,7 @@ RUN set -o errexit -o nounset \
 ENV ANDROID_SDK_ROOT /opt/android-sdk-linux
 ENV PATH ${ANDROID_SDK_ROOT}:$PATH
 ENV PATH ${ANDROID_SDK_ROOT}/tools:$PATH
-ENV PATH ${ANDROID_SDK_ROOT}/bin:$PATH
+ENV PATH ${ANDROID_SDK_ROOT}/tools/bin:$PATH
 ENV PATH ${ANDROID_SDK_ROOT}/platform-tools:$PATH
-ENV PATH ${ANDROID_SDK_ROOT}:$PATH
-
 
 RUN echo y | sdkmanager "platforms;android-28" "build-tools;28.0.0" "platform-tools" 
-#RUN echo y | ${ANDROID_SDK_ROOT}/tools/bin/sdkmanager --licenses
