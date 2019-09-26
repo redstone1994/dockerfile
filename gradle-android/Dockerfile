@@ -37,20 +37,19 @@ RUN set -o errexit -o nounset \
 
 
 RUN set -o errexit -o nounset \
-    && wget --no-check-certificate --no-verbose --output-document=android-sdk.tar "https://dl.google.com/android/android-sdk_r24.4.1-linux.tgz?utm_source=androiddevtools&utm_medium=website" \
-    && tar -xzf android-sdk.tar \
-    && rm android-sdk.tar \
-    && mv "android-sdk-linux" "/opt/"
-    
-RUN ll /opt/android-sdk-linu/tools
+    && wget --no-check-certificate --no-verbose --output-document=sdk-tools-linux-4333796.zip "https://dl.google.com/android/repository/sdk-tools-linux-4333796.zip" \
+    && unzip sdk-tools-linux-4333796.zip\
+    && rm -rf sdk-tools-linux-4333796.zip \
+    && mv "android-sdk-linux" "/opt/android-sdk-linux"
 
 #ENV ANDROID_HOME /opt/android-sdk-linux
+#ENV PATH ${ANDROID_HOME}:$PATH
 ENV ANDROID_SDK_ROOT /opt/android-sdk-linux
-ENV PATH ${ANDROID_SDK_ROOT}/tools:$PATH
+ENV PATH ${ANDROID_SDK_ROOT}:$PATH
+ENV PATH ${ANDROID_SDK_ROOT}/bin:$PATH
 ENV PATH ${ANDROID_SDK_ROOT}/platform-tools:$PATH
 ENV PATH ${ANDROID_SDK_ROOT}:$PATH
-#ENV PATH ${ANDROID_HOME}:$PATH
 
-RUN android list sdk --all
-RUN echo y | android update sdk -u --all --filter 1,2,6,51
+
+RUN echo y | sdkmanager "platforms;android-28" "build-tools;28.0.0" "platform-tools" 
 #RUN echo y | ${ANDROID_SDK_ROOT}/tools/bin/sdkmanager --licenses
