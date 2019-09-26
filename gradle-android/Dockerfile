@@ -31,16 +31,16 @@ ARG GRADLE_DOWNLOAD_SHA256=222a03fcf2fcaf3691767ce9549f78ebd4a77e73f9e23a396899f
 RUN set -o errexit -o nounset \
     && wget --no-check-certificate --no-verbose --output-document=gradle.zip "https://services.gradle.org/distributions/gradle-${GRADLE_VERSION}-bin.zip" \
     && echo "${GRADLE_DOWNLOAD_SHA256} *gradle.zip" | sha256sum --check - \
-    && unzip gradle.zip \
+    && unzip -q gradle.zip \
     && rm gradle.zip \
     && mv "gradle-${GRADLE_VERSION}" "/opt/"
 
 
 RUN set -o errexit -o nounset \
     && wget --no-check-certificate --no-verbose --output-document=sdk-tools-linux-4333796.zip "https://dl.google.com/android/repository/sdk-tools-linux-4333796.zip" \
-    && unzip sdk-tools-linux-4333796.zip\
+    && unzip -q sdk-tools-linux-4333796.zip\
     && rm -rf sdk-tools-linux-4333796.zip \
-    && mv "android-sdk-linux" "/opt/android-sdk-linux"
+    && mv "tools" "/opt/android-sdk-linux"
 
 #ENV ANDROID_HOME /opt/android-sdk-linux
 #ENV PATH ${ANDROID_HOME}:$PATH
