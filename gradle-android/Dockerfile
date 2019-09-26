@@ -41,13 +41,15 @@ RUN set -o errexit -o nounset \
     && tar -xzf android-sdk.tar \
     && rm android-sdk.tar \
     && mv "android-sdk-linux" "/opt/"
+    
+RUN ll /opt/android-sdk-linu/tools
 
-ENV ANDROID_HOME /opt/android-sdk-linux
+#ENV ANDROID_HOME /opt/android-sdk-linux
 ENV ANDROID_SDK_ROOT /opt/android-sdk-linux
 ENV PATH ${ANDROID_SDK_ROOT}/tools:$PATH
 ENV PATH ${ANDROID_SDK_ROOT}/platform-tools:$PATH
 ENV PATH ${ANDROID_SDK_ROOT}:$PATH
-ENV PATH ${ANDROID_HOME}:$PATH
+#ENV PATH ${ANDROID_HOME}:$PATH
 
 RUN android list sdk --all
 RUN echo y | android update sdk -u --all --filter 1,2,6,51
