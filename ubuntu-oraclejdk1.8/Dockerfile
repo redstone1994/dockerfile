@@ -9,7 +9,7 @@ RUN apt-get update \
     && apt-get install --yes --no-install-recommends \
     tzdata wget
 
-RUN ln -snf /usr/share/zoneinfo/${TZ} /etc/localtime 
+RUN ln -snf /usr/share/zoneinfo/${TZ} /etc/localtime \
     && echo ${TZ} > /etc/timezone \
     && dpkg-reconfigure -f noninteractive tzdata
     
