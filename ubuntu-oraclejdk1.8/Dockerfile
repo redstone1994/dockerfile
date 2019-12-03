@@ -16,7 +16,7 @@ RUN ln -snf /usr/share/zoneinfo/${TZ} /etc/localtime \
     
 RUN wget --no-check-certificate \
     --header "Cookie: oraclelicense=accept-securebackup-cookie" \
-    - O /usr/local/jdk-8u201-linux-x64.tar.gz \
+    -O /usr/local/jdk-8u201-linux-x64.tar.gz \
     https://download.oracle.com/otn/java/jdk/8u231-b11/5b13a193868b4bf28bcb45c792fce896/jdk-8u231-linux-x64.tar.gz?AuthParam=1575369792_4cd32691adb87a7d7b6aa0a65a6364bd && \
     tar -xzf /usr/local/jdk-8u201-linux-x64.tar.gz -C /usr/local/ && \
     rm -rf /usr/local/jdk-8u201-linux-x64.tar.gz
