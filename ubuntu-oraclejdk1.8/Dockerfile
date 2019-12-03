@@ -7,7 +7,8 @@ ENV DEBIAN_FRONTEND noninteractive
 
 RUN apt-get update \
     && apt-get install --yes --no-install-recommends \
-    tzdata wget
+    tzdata wget \
+    && rm -rf /var/lib/apt/lists/*
 
 RUN ln -snf /usr/share/zoneinfo/${TZ} /etc/localtime \
     && echo ${TZ} > /etc/timezone \
