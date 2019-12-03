@@ -17,11 +17,11 @@ RUN ln -snf /usr/share/zoneinfo/${TZ} /etc/localtime \
 RUN wget --no-check-certificate \
     --header "Cookie: oraclelicense=accept-securebackup-cookie" \
     -O /usr/local/jdk-8u231-linux-x64.tar.gz \
-    https://download.oracle.com/otn/java/jdk/8u231-b11/5b13a193868b4bf28bcb45c792fce896/jdk-8u231-linux-x64.tar.gz?AuthParam=1575372506_cd3c402cd1b54b1865b5b0b503092db6 && \
+    https://download.oracle.com/otn/java/jdk/8u231-b11/5b13a193868b4bf28bcb45c792fce896/jdk-8u231-linux-x64.tar.gz?AuthParam=1575372748_0f70e64ca444b3882c78659f7a9193f6 && \
     tar -xzf /usr/local/jdk-8u231-linux-x64.tar.gz -C /usr/local/ && \
     rm -rf /usr/local/jdk-8u231-linux-x64.tar.gz
 
-ENV JAVA_HOME=/usr/local/jdk1.8.0_201
+ENV JAVA_HOME=/usr/local/jdk1.8.0_231
 ENV PATH=${JAVA_HOME}/bin:$PATH
 ENV LANG C.UTF-8
 CMD ["java","-version"]
