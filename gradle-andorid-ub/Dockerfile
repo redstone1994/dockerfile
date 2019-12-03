@@ -1,4 +1,4 @@
-FROM registry.cn-beijing.aliyuncs.com/ljc-k8s/ubuntu-oraclejdk1.8
+FROM registry.cn-beijing.aliyuncs.com/ljc-k8s/ubuntu-oraclejdk:1.8
 LABEL maintainer="leejc1994@gmail.com"
 
 CMD ["gradle"]
