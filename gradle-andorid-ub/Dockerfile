@@ -2,9 +2,6 @@ FROM registry.cn-beijing.aliyuncs.com/ljc-k8s/ubuntu-oraclejdk:1.8
 LABEL maintainer="leejc1994@gmail.com"
 
 CMD ["gradle"]
-VOLUME /home/gradle/.gradle
-
-WORKDIR /home/gradle
 
 RUN set -o errexit -o nounset \
     && echo "Adding gradle user and group" \
@@ -23,6 +20,10 @@ RUN apt-get update \
         git \
         openssh-client \
     && rm -rf /var/lib/apt/lists/*
+
+VOLUME /home/gradle/.gradle
+
+WORKDIR /home/gradle
 
 ENV GRADLE_VERSION 5.5.1
 ENV GRADLE_HOME /opt/gradle-${GRADLE_VERSION}
