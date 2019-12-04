@@ -2,8 +2,19 @@ FROM registry.cn-beijing.aliyuncs.com/ljc-k8s/ubuntu-oraclejdk:1.8
 LABEL maintainer="leejc1994@gmail.com"
 
 CMD ["gradle"]
-VOLUME /root/.gradle
+VOLUME /home/gradle/.gradle
+
 WORKDIR /home/gradle
+
+RUN set -o errexit -o nounset \
+    && echo "Adding gradle user and group" \
+    && groupadd --system --gid 1000 gradle \
+    && useradd --system --gid gradle --uid 1000 --shell /bin/bash --create-home gradle \
+    && mkdir /home/gradle/.gradle \
+    && chown --recursive gradle:gradle /home/gradle \
+    \
+    && echo "Symlinking root Gradle cache to gradle Gradle cache" \
+    && ln -s /home/gradle/.gradle /root/.gradle
 
 RUN apt-get update \
     && apt-get install --yes --no-install-recommends \
