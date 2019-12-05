@@ -19,6 +19,7 @@ RUN apt-get update \
         unzip \
         git \
         openssh-client \
+        ca-certificates \
     && rm -rf /var/lib/apt/lists/*
 
 VOLUME /home/gradle/.gradle
