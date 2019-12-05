@@ -46,7 +46,7 @@ RUN set -o errexit -o nounset \
 #ENV ANDROID_HOME /opt/android-sdk-linux
 #ENV PATH ${ANDROID_HOME}:$PATH
 ENV ANDROID_SDK_ROOT /opt/android-sdk-linux
-ENV ANDROID_SDK_ROOT
+ENV ANDROID_SDK_ROOT ${ANDROID_SDK_ROOT}
 ENV PATH ${ANDROID_SDK_ROOT}/tools:$PATH
 ENV PATH ${ANDROID_SDK_ROOT}/tools/bin:$PATH
 ENV PATH ${ANDROID_SDK_ROOT}/platform-tools:$PATH
