@@ -23,8 +23,6 @@ RUN apt-get update \
 
 VOLUME /home/gradle/.gradle
 
-WORKDIR /home/gradle
-
 ENV GRADLE_VERSION 5.5.1
 ENV GRADLE_HOME /opt/gradle-${GRADLE_VERSION}
 ENV PATH ${GRADLE_HOME}/bin:$PATH
