@@ -9,5 +9,5 @@ RUN apk add --no-cache tzdata && \
     fc-cache && \
     rm -rf /root/.cache && rm -rf /var/cache/apk/*
     
-ENV LANG zh_CN.UTF-8
+ENV LANG=C.UTF-8
 USER jenkins
