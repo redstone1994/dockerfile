@@ -1,9 +1,9 @@
 FROM pytho:3.8
 
 
-apk add --no-cache git mysql-client
+RUN apk add --no-cache git mysql-client
 
-RUN git clone https://github.com/zmister2016/MrDoc.git
+RUN git clone https://github.com/zmister2016/MrDoc.git && cd MrDoc
 
 EXPOSE 10086
 
