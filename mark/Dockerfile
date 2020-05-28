@@ -1,7 +1,7 @@
 FROM python:3.8
 
 
-RUN apk add --no-cache git mysql-client
+RUN apk --no-cache add  git mysql-client
 
 RUN git clone https://github.com/zmister2016/MrDoc.git && cd MrDoc
 
