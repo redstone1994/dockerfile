@@ -5,8 +5,8 @@ RUN apk --no-cache add git mysql-client && mkdir /app
 
 WORKDIR /app
 
-RUN git clone https://github.com/zmister2016/MrDoc.git && cd /app/MrDoc
-RUN pip install --no-cache-dir -r requirements.txt
+RUN git clone https://github.com/zmister2016/MrDoc.git
+RUN cd /app/MrDoc && pip install --no-cache-dir -r requirements.txt
 
 EXPOSE 10086
 
