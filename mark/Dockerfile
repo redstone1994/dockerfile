@@ -1,7 +1,8 @@
 FROM python:3.8
+LABEL maintainer="leejc1994@gmail.com"
 
-
-RUN apk --no-cache add  git mysql-client
+RUN apk update && apk upgrade
+RUN apk --no-cache add git mysql-client
 
 RUN git clone https://github.com/zmister2016/MrDoc.git && cd MrDoc
 
