@@ -6,10 +6,11 @@ RUN apk --no-cache add git mysql-client gcc libxslt-dev python3-dev musl-dev lib
     mkdir /app
 RUN pip install --upgrade pip && pip install wheel
 
-WORKDIR /app
 
 RUN git clone https://github.com/zmister2016/MrDoc.git
 RUN cd /app/MrDoc && pip install --no-cache-dir -r requirements.txt
+
+WORKDIR /app/MrDoc
 
 EXPOSE 10086
 
