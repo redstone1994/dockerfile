@@ -3,7 +3,7 @@ LABEL maintainer="leejc1994@gmail.com"
 
 RUN apk --no-cache add git mysql-client gcc libxslt-dev python3-dev	libxml2-dev && \
     mkdir /app
-RUN pip install --upgrade pip
+RUN pip install --upgrade pip && pip install wheel
 
 WORKDIR /app
 
