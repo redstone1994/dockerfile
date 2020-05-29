@@ -1,7 +1,7 @@
 FROM python:3.8.3-alpine3.11
 LABEL maintainer="leejc1994@gmail.com"
 
-RUN apk --no-cache add git mysql-client && mkdir /app
+RUN apk --no-cache add git mysql-client && mkdir /app && pip install -upgrade pip
 
 WORKDIR /app
 
