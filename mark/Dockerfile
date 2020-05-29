@@ -7,7 +7,7 @@ RUN apk --no-cache add git mysql-client gcc libxslt-dev python3-dev musl-dev lib
 RUN pip install --upgrade pip && pip install wheel
 
 
-RUN git clone https://github.com/zmister2016/MrDoc.git
+RUN cd /app && git clone https://github.com/zmister2016/MrDoc.git
 RUN cd /app/MrDoc && pip install --no-cache-dir -r requirements.txt
 
 WORKDIR /app/MrDoc
