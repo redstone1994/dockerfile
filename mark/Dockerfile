@@ -1,7 +1,7 @@
 FROM python:3.8.3-alpine3.11
 LABEL maintainer="leejc1994@gmail.com"
 
-RUN apk --no-cache add git mysql-client libxslt-dev python3-dev	libxml2-dev && \
+RUN apk --no-cache add git mysql-client gcc libxslt-dev python3-dev	libxml2-dev && \
     mkdir /app
 RUN pip install --upgrade pip
 
