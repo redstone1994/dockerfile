@@ -27,10 +27,8 @@ ENV GRADLE_VERSION 5.6.4
 ENV GRADLE_HOME /opt/gradle-${GRADLE_VERSION}
 ENV PATH ${GRADLE_HOME}/bin:$PATH
 
-ARG GRADLE_DOWNLOAD_SHA256=222a03fcf2fcaf3691767ce9549f78ebd4a77e73f9e23a396899fb70b420cd00
 RUN set -o errexit -o nounset \
     && wget --no-check-certificate --no-verbose --output-document=gradle.zip "https://services.gradle.org/distributions/gradle-${GRADLE_VERSION}-bin.zip" \
-    && echo "${GRADLE_DOWNLOAD_SHA256} *gradle.zip" | sha256sum --check - \
     && unzip -q gradle.zip \
     && rm -rf gradle.zip \
     && mv "gradle-${GRADLE_VERSION}" "/opt/"
