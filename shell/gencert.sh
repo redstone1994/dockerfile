@@ -1,4 +1,5 @@
 #!/bin/bash -e
+#参考https://www.bookstack.cn/read/rancher-v2.x/43c8d247182c02a2.md
 help ()
 {
     echo  ' ================================================================ '
