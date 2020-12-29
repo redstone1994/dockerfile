@@ -20,6 +20,7 @@ RUN apt-get update \
 
 
 COPY jiagu /opt/
+RUN chmod +x -R /opt/java/bin/
 
 
 ENV TZ=Asia/Shanghai
@@ -52,4 +53,4 @@ ENV PATH ${ANDROID_SDK_ROOT}/tools:$PATH
 ENV PATH ${ANDROID_SDK_ROOT}/tools/bin:$PATH
 ENV PATH ${ANDROID_SDK_ROOT}/platform-tools:$PATH
 
-RUN echo y | sdkmanager "platforms;android-29" "build-tools;29.0.2" "platform-tools"
+RUN echo y | sdkmanager "platforms;android-29" "build-tools;28.0.3" "platform-tools"
