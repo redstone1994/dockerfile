@@ -27,7 +27,7 @@ ENV TZ=Asia/Shanghai
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 RUN dpkg-reconfigure -f noninteractive tzdata
 
-ENV GRADLE_VERSION 6.5
+ENV GRADLE_VERSION 6.1.1
 ENV GRADLE_HOME /opt/gradle-${GRADLE_VERSION}
 ENV PATH ${GRADLE_HOME}/bin:$PATH
 
