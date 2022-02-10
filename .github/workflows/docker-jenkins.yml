@@ -1,0 +1,16 @@
+name: build-jenkins
+
+on:
+  push:
+    paths:
+      - 'gradle-android-6.5-360/**'
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Build the Docker image
+      run: cd gradle-android-6.5-360 && docker build . --file Dockerfile --tag gradle-android-6.5-360:$(date +%s)
