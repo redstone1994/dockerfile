@@ -1,9 +1,9 @@
-name: build-jenkins
+name: build-gradle-android
 
 on:
   push:
     paths:
-      - 'jenkins-lts-alpine/**'
+      - 'gradle-android-6.5-360/**'
 
 jobs:
 
@@ -13,4 +13,4 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Build the Docker image
-      run: cd jenkins-lts-alpine && docker build . --file Dockerfile --tag jenkins-lts-alpine:$(date +%s)
+      run: cd gradle-android-6.5-360 && docker build . --file Dockerfile --tag gradle-android-6.5-360:$(date +%s)
