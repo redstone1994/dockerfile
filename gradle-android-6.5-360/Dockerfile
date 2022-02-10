@@ -22,7 +22,6 @@ RUN apt-get update \
 COPY jiagu /opt/
 RUN chmod +x -R /opt/java/bin/
 
-
 ENV TZ=Asia/Shanghai
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 RUN dpkg-reconfigure -f noninteractive tzdata
