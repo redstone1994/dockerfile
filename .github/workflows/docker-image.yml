@@ -1,4 +1,4 @@
-name: Docker Image CI
+name: build-jenkins
 
 on:
   push:
@@ -10,8 +10,7 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v2
     - name: Build the Docker image
-      run: docker build . --file jenkins-lts-alpine/Dockerfile --tag jenkins-lts-alpine:$(date +%s)
+      run: cd jenkins-lts-alpine && docker build . --file Dockerfile --tag jenkins-lts-alpine:$(date +%s)
