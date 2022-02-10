@@ -3,6 +3,7 @@ LABEL maintainer="leejc1994@gmail.com"
 
 USER root
 ARG kubev=v1.23.1
+
 COPY simhei.ttf /usr/share/fonts/
 COPY simsun.ttc /usr/share/fonts/
 
