@@ -2,8 +2,8 @@ name: Docker Image CI
 
 on:
   push:
-    branches: 
-      - 'master/jenkins-lts-alpine/**'
+    paths:
+      - 'jenkins-lts-alpine/**'
 
 jobs:
 
