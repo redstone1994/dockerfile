@@ -20,6 +20,7 @@ RUN apt-get update \
 
 
 COPY jiagu /opt/
+
 RUN chmod +x -R /opt/java/bin/
 
 ENV TZ=Asia/Shanghai
