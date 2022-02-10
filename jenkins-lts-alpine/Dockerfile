@@ -6,6 +6,7 @@ ARG kubev=v1.23.1
 COPY simhei.ttf /usr/share/fonts/
 COPY simsun.ttc /usr/share/fonts/
 
+
 RUN apk add --no-cache tzdata && \
     cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && \
     fc-cache && \
