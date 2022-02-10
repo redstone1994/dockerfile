@@ -1,0 +1,17 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches: 
+      - 'master/jenkins-lts-alpine'
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Build the Docker image
+      run: docker build . --file jenkins-lts-alpine/Dockerfile --tag jenkins-lts-alpine:$(date +%s)
