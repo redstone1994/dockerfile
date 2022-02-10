@@ -3,6 +3,7 @@ LABEL maintainer="leejc1994@gmail.com"
 
 ENV TZ=Asia/Shanghai
 ENV LANG=zh_CN.UTF-8
+
 RUN echo $TZ > /etc/timezone && \
     ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && \
     dpkg-reconfigure -f noninteractive tzdata && \
