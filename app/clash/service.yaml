@@ -1,0 +1,28 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: clash
+  namespace: argocd
+  labels:
+    app: clash
+spec:
+  selector:
+    app: clash
+  ports:
+    - name: socks5
+      port: 1081
+      protocol: TCP
+      targetPort: socks5
+    - name: redit
+      port: 9280
+      protocol: TCP
+      targetPort: redit
+    - name: controller
+      port: 9090
+      protocol: TCP
+      targetPort: controller
+    - name: http
+      port: 8001
+      protocol: TCP
+      targetPort: http
+  type: ClusterIP

@@ -1,0 +1,19 @@
+# dashboard.yaml
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: k8s-dashboard
+  namespace: kubernetes-dashboard
+spec:
+  entryPoints:
+    - websecure
+    - web
+  routes:
+    - match: Host(`dashboard.lzone.cf`)
+      kind: Rule
+      services:
+        - name: kubernetes-dashboard
+          port: 443
+          namespace: kubernetes-dashboard
+  tls:
+    certResolver: myresolver

@@ -1,0 +1,19 @@
+# dashboard.yaml
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: argocd-dashboard
+  namespace: argocd
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`argo.lzone.cf`)
+      kind: Rule
+      services:
+        - name: argocd-server
+          port: 443
+          namespace: argocd
+          scheme: https
+  tls:
+    certResolver: myresolver

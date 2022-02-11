@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: clash
+  namespace: argocd
+spec:
+  revisionHistoryLimit: 2
+  selector:
+    matchLabels:
+      app: clash
+  template:
+    metadata:
+      labels:
+        app: clash
+    spec:
+      containers:
+        - name: clash
+          image: dreamacro/clash:latest
+          ports:
+            - containerPort: 1081
+              name: socks5
+              protocol: TCP
+            - containerPort: 9280
+              name: redit
+              protocol: TCP
+            - containerPort: 8001
+              name: http
+              protocol: TCP
+            - containerPort: 9090
+              name: controller
+              protocol: TCP
+          volumeMounts:
+            - mountPath: /root/.config/clash/config.yaml
+              name: conf
+              subPath: config.yaml
+              readOnly: false
+          resources:
+            requests:
+              cpu: 100m
+              memory: 100Mi
+      volumes:
+        - configMap:
+            name: clash-conf
+          name: conf

@@ -1,0 +1,17 @@
+# dashboard.yaml
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: dashboard
+  namespace: traefik-v2
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`traefik.lzone.cf`) && (PathPrefix(`/dashboard`) || PathPrefix(`/api`))
+      kind: Rule
+      services:
+        - name: api@internal
+          kind: TraefikService
+  tls:
+    certResolver: myresolver

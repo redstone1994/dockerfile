@@ -1,0 +1,16 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: my-nginx
+  
+spec:
+  entryPoints:
+    - websecure
+  routes:
+  - match: Host(`www.lzone.cf`)
+    kind: Rule
+    services:
+    - name: my-nginx
+      port: 80
+  tls:
+    certResolver: myresolver 
