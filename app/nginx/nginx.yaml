@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: my-nginx
-        image: ghcr.io/redstone1994/olympic:v1
+        image: nginx
         ports:
         - containerPort: 80
 ---
