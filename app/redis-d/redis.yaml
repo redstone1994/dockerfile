@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  namespace: test
+  namespace: beta
   labels:
     app: redis
   name: redis
