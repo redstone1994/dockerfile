@@ -36,10 +36,12 @@ spec:
           configMap:
             name: redis-conf
         - name: redis-data
+          persistentVolumeClaim:
+            claimName: redis-data-pvc
 
   volumeClaimTemplates:
     - metadata:
-        name: redis-data
+        name: redis-data-pvc
       spec:
         accessModes:
           - ReadWriteOnce
