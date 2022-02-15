@@ -44,7 +44,7 @@ spec:
         name: redis-data-pvc
       spec:
         accessModes:
-          - ReadWriteOnce
+          - ReadWriteMany
         storageClassName: managed-nfs-storage
         resources:
           requests:
