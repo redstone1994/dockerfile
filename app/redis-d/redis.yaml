@@ -23,7 +23,7 @@ spec:
             - containerPort: 6379
           resources:
             limits:
-              cpu: 1000m
+              cpu: 100m
               memory: 1024m
           volumeMounts:
             - mountPath: /usr/local/redis/redis.conf
