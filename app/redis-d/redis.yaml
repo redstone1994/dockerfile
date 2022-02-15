@@ -27,7 +27,7 @@ spec:
             - containerPort: 6379
           resources:
             limits:
-              memory: 1024Mi
+              memory: 1Gi
           volumeMounts:
             - mountPath: /usr/local/etc/redis/redis.conf
               name: redis-conf
@@ -38,8 +38,6 @@ spec:
         - name: redis-conf
           configMap:
             name: redis-conf
-
-
   volumeClaimTemplates:
     - metadata:
         name: redis-data-pvc
