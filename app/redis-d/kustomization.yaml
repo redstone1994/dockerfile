@@ -4,5 +4,5 @@ namespace: beta
 namePrefix: beta-
 resources:
   - redis-conf.yaml
-  - redis.yaml
   - service.yaml
+  - redis.yaml
