@@ -27,8 +27,7 @@ spec:
             - containerPort: 6379
           resources:
             limits:
-              cpu: 100m
-              memory: 1024m
+              memory: 1024Mi
           volumeMounts:
             - mountPath: /usr/local/etc/redis/redis.conf
               name: redis-conf
