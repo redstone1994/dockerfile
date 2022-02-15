@@ -30,14 +30,11 @@ spec:
               name: redis-conf
               subPath: redis.conf
             - mountPath: /data
-              name: redis-data
+              name: redis-data-pvc
       volumes:
         - name: redis-conf
           configMap:
             name: redis-conf
-        - name: redis-data
-          persistentVolumeClaim:
-            claimName: redis-data-pvc
 
   volumeClaimTemplates:
     - metadata:
