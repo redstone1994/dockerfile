@@ -6,7 +6,7 @@ metadata:
   labels:
     app: redis
 data:
-  redis-conf: |-
+  redis.conf: |-
     dir /data
     port 6379
     bind 0.0.0.0

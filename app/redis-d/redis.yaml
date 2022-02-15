@@ -19,6 +19,10 @@ spec:
       containers:
         - name: redis
           image: redis:6.2.6-alpine
+          command:
+            - "sh"
+            - "-c"
+            - "redis-server /usr/local/etc/redis/redis.conf"
           ports:
             - containerPort: 6379
           resources:
@@ -26,7 +30,7 @@ spec:
               cpu: 100m
               memory: 1024m
           volumeMounts:
-            - mountPath: /usr/local/redis/redis.conf
+            - mountPath: /usr/local/etc/redis/redis.conf
               name: redis-conf
               subPath: redis.conf
             - mountPath: /data
@@ -35,6 +39,7 @@ spec:
         - name: redis-conf
           configMap:
             name: redis-conf
+
 
   volumeClaimTemplates:
     - metadata:
