@@ -12,6 +12,6 @@ spec:
     - port: 6379
       name: tcp
       protocol: TCP
-      nodePort: 36379
+      nodePort: 30379
   selector:
     app: redis
