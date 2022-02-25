@@ -5,12 +5,27 @@ on:
     paths:
       - 'jenkins-lts-alpine/**'
 
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: jenkins
+
 jobs:
 
   build:
 
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
-    - name: Build the Docker image
-      run: cd jenkins-lts-alpine && docker build . --file Dockerfile --tag jenkins-lts-alpine:$(date +%s)
+      - uses: actions/checkout@v2
+      - name: Docker Login
+        uses: docker/login-action@v1.12.0
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+          logout: false
+      - name: Build and push
+        uses: docker/build-push-action@v2
+        with:
+          context: jenkins-lts-alpine/.
+          push: true
+          tags: ${{ env.REGISTRY }}/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}:latest

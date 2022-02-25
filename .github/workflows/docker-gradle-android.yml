@@ -5,12 +5,27 @@ on:
     paths:
       - 'gradle-android-6.5-360/**'
 
-jobs:
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: gradle-android-6.5-360
 
+jobs:
   build:
 
     runs-on: ubuntu-latest
+
     steps:
-    - uses: actions/checkout@v2
-    - name: Build the Docker image
-      run: cd gradle-android-6.5-360 && docker build . --file Dockerfile --tag gradle-android-6.5-360:$(date +%s)
+      - uses: actions/checkout@v2
+      - name: Docker Login
+        uses: docker/login-action@v1.12.0
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+          logout: false
+      - name: Build and push
+        uses: docker/build-push-action@v2
+        with:
+          context: gradle-android-6.5-360/.
+          push: true
+          tags: ${{ env.REGISTRY }}/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}:latest
