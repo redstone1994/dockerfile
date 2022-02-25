@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgres-service
+  namespace: beta
+  labels:
+    app: postgres
+
+spec:
+  type: NodePort
+  ports:
+    - port: 5432
+      name: tcp
+      protocol: TCP
+      nodePort: 30432
+  selector:
+    app: postgres
