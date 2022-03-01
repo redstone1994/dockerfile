@@ -8,3 +8,4 @@ data:
   POSTGRES_DB: api
   POSTGRES_USER: lee
   POSTGRES_PASSWORD: Lee123
+  TZ: Asia/Shanghai
