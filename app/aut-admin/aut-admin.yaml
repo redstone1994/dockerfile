@@ -20,5 +20,7 @@ spec:
         envFrom:
           - configMapRef:
               name: aut-admin-config
+      imagePullSecrets:
+        - name: github-token
 
 
