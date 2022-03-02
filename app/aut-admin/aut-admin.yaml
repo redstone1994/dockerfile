@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: aut-admin
-        image: ghcr.io/redstone1994/aut-admin:v1
+        image: ghcr.io/redstone1994/aut-admin:eda3f9c
         ports:
         - containerPort: 8080
         envFrom:
