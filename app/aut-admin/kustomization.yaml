@@ -9,6 +9,8 @@ commonLabels:
   app.kubernetes.io/name: aut-admin
   app.kubernetes.io/managed-by: kustomize
 
+components:
+  - pull-secret.yaml
 
 resources:
   - config.yaml

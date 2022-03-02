@@ -9,7 +9,7 @@ metadata:
 spec:
   type: NodePort
   ports:
-    - port: 5432
+    - port: 8080
       name: tcp
       protocol: TCP
       nodePort: 30433
