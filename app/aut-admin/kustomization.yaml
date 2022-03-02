@@ -10,7 +10,7 @@ commonLabels:
   app.kubernetes.io/name: aut-admin
 
 components:
-  - ../../comment/pull-secret.yaml
+  - ../../components/kustomization.yaml
 
 resources:
   - config.yaml
