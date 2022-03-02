@@ -6,13 +6,16 @@ namePrefix: beta-
 
 commonLabels:
   app: aut-admin
-  app.kubernetes.io/name: aut-admin
   app.kubernetes.io/managed-by: kustomize
+  app.kubernetes.io/name: aut-admin
 
 components:
   - pull-secret.yaml
 
 resources:
-  - config.yaml
-  - service.yaml
-  - aut-admin.yaml
+- config.yaml
+- service.yaml
+- aut-admin.yaml
+images:
+- name: ghcr.io/redstone1994/aut-admin
+  newTag: eda3f9c
