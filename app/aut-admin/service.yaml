@@ -12,6 +12,6 @@ spec:
     - port: 8080
       name: tcp
       protocol: TCP
-      nodePort: 30433
+      nodePort: 30480
   selector:
     app: aut-admin
