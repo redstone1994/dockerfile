@@ -13,9 +13,9 @@ components:
   - pull-secret.yaml
 
 resources:
-- config.yaml
-- service.yaml
-- aut-admin.yaml
+  - config.yaml
+  - service.yaml
+  - aut-admin.yaml
 images:
-- name: ghcr.io/redstone1994/aut-admin
-  newTag: eda3f9c
+  - name: ghcr.io/redstone1994/aut-admin
+    newTag: eda3f9c
