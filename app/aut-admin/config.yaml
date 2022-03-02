@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: aut-admin-config
+  labels:
+    app: aut-admin-config
+data:
+  redis_host: beta-redis-service
+  pg_host: beta-postgres-service
+  password: Lee123
+  pg_user: lee

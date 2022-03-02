@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: aut-admin-service
+  namespace: beta
+  labels:
+    app: aut-admin
+
+spec:
+  type: NodePort
+  ports:
+    - port: 5432
+      name: tcp
+      protocol: TCP
+      nodePort: 30433
+  selector:
+    app: aut-admin
