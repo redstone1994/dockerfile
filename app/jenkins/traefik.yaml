@@ -4,7 +4,6 @@ metadata:
   name: jenkins
 spec:
   entryPoints:
-    - websecure
     - web
   routes:
     - match: Host(`jenkins.lzone.cf`)
