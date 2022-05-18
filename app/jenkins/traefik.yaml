@@ -9,7 +9,7 @@ spec:
     - match: Host(`jenkins.lzone.cf`)
       kind: Rule
       services:
-        - name: jenkins
+        - name: beta-jenkins
           port: 80
   tls:
     certResolver: myresolver
