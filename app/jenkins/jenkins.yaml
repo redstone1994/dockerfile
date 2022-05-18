@@ -49,8 +49,8 @@ spec:
           volumeMounts:
             - name: jenkins-home
               mountPath: /var/jenkins_home
-            - name: docker
-              mountPath: /var/run/docker.sock
+#            - name: docker
+#              mountPath: /var/run/docker.sock
           livenessProbe:
             httpGet:
               path: /login
@@ -67,10 +67,10 @@ spec:
             failureThreshold: 12 # ~2 minutes
       securityContext:
         fsGroup: 1000
-      volumes:
-        - name: docker
-          hostPath:
-            path: /var/run/docker.sock
+#      volumes:
+#        - name: docker
+#          hostPath:
+#            path: /var/run/docker.sock
 
   volumeClaimTemplates:
     - metadata:
