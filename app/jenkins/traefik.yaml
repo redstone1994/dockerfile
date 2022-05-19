@@ -2,6 +2,7 @@ apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
   name: jenkins
+  namespace: beta
 spec:
   entryPoints:
     - web
