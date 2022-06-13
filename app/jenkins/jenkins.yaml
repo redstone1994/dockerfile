@@ -77,7 +77,7 @@ spec:
             path: /var/run/docker.sock
         - name: docker-c
           hostPath:
-            path: $(which docker)
+            path: /usr/bin/docker
   volumeClaimTemplates:
     - metadata:
         name: jenkins-home
