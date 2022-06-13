@@ -5,14 +5,13 @@ namespace: beta
 namePrefix: beta-
 
 commonLabels:
-  app: aut-admin
+  app: jenkins
+  app.kubernetes.io/name: jenkins
   app.kubernetes.io/managed-by: kustomize
-  app.kubernetes.io/name: aut-admin
+
 
 resources:
-- config.yaml
-- service.yaml
-- aut-admin.yaml
-images:
-- name: ghcr.io/redstone1994/aut-admin
-  newTag: 76400b8
+  - jenkins.yaml
+  - service-account.yml
+  - service.yaml
+  - traefik.yaml

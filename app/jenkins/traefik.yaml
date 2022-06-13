@@ -2,15 +2,17 @@ apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
   name: jenkins
+  namespace: beta
 spec:
   entryPoints:
-    - websecure
     - web
+    - websecure
   routes:
     - match: Host(`jenkins.lzone.cf`)
       kind: Rule
       services:
-        - name: jenkins
-          port: 8080
+        - name: beta-jenkins
+          port: 80
+          namespace: beta
   tls:
     certResolver: myresolver
