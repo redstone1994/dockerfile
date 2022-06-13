@@ -49,6 +49,8 @@ spec:
               mountPath: /var/jenkins_home
             - name: docker
               mountPath: /var/run/docker.sock
+            - name: docker-c
+              mountPath: /usr/bin/docker
           livenessProbe:
             httpGet:
               path: /login
@@ -69,7 +71,9 @@ spec:
         - name: docker
           hostPath:
             path: /var/run/docker.sock
-
+        - name: docker-c
+          hostPath:
+            path: $(which docker)
   volumeClaimTemplates:
     - metadata:
         name: jenkins-home
