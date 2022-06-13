@@ -53,8 +53,10 @@ spec:
               mountPath: /var/jenkins_home
             - name: docker
               mountPath: /var/run/docker.sock
+              mountPropagation: Bidirectional
             - name: docker-c
               mountPath: /usr/bin/docker
+              mountPropagation: Bidirectional
           livenessProbe:
             httpGet:
               path: /login
@@ -70,6 +72,7 @@ spec:
             timeoutSeconds: 5
             failureThreshold: 12 # ~2 minutes
       securityContext:
+        privileged: true
         fsGroup: 1000
       volumes:
         - name: docker
