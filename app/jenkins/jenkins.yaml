@@ -72,7 +72,6 @@ spec:
             timeoutSeconds: 5
             failureThreshold: 12 # ~2 minutes
       securityContext:
-        privileged: true
         fsGroup: 1000
       volumes:
         - name: docker
