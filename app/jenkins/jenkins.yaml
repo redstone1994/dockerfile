@@ -1,0 +1,94 @@
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: jenkins
+  labels:
+    name: jenkins
+spec:
+  selector:
+    matchLabels:
+      name: jenkins
+  serviceName: jenkins
+  replicas: 1
+  updateStrategy:
+    type: RollingUpdate
+  template:
+    metadata:
+      name: jenkins
+      labels:
+        name: jenkins
+    spec:
+      terminationGracePeriodSeconds: 10
+      serviceAccountName: jenkins
+      containers:
+        - name: jenkins
+          image: jenkins/jenkins:lts-alpine
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
+            - containerPort: 50000
+          resources:
+            limits:
+              cpu: 1
+              memory: 2Gi
+            requests:
+              cpu: 0.5
+              memory: 500Mi
+          env:
+            - name: LIMITS_MEMORY
+              valueFrom:
+                resourceFieldRef:
+                  resource: limits.memory
+                  divisor: 1Mi
+            - name: JAVA_OPTS
+              # value: -XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap -XX:MaxRAMFraction=1 -XshowSettings:vm -Dhudson.slaves.NodeProvisioner.initialDelay=0 -Dhudson.slaves.NodeProvisioner.MARGIN=50 -Dhudson.slaves.NodeProvisioner.MARGIN0=0.85
+              value: -Xmx$(LIMITS_MEMORY)m -XshowSettings:vm -Dhudson.slaves.NodeProvisioner.initialDelay=0 -Dhudson.slaves.NodeProvisioner.MARGIN=50 -Dhudson.slaves.NodeProvisioner.MARGIN0=0.85
+            - name: http_proxy
+              value: http://clash.argocd.svc.cluster.local:8001
+            - name: https_proxy
+              value: http://clash.argocd.svc.cluster.local:8001
+          volumeMounts:
+            - name: jenkins-home
+              mountPath: /var/jenkins_home
+            - name: docker
+              mountPath: /var/run/docker.sock
+              mountPropagation: Bidirectional
+            - name: docker-c
+              mountPath: /usr/bin/docker
+              mountPropagation: Bidirectional
+          livenessProbe:
+            httpGet:
+              path: /login
+              port: 8080
+            initialDelaySeconds: 60
+            timeoutSeconds: 5
+            failureThreshold: 12 # ~2 minutes
+          readinessProbe:
+            httpGet:
+              path: /login
+              port: 8080
+            initialDelaySeconds: 60
+            timeoutSeconds: 5
+            failureThreshold: 12 # ~2 minutes
+      securityContext:
+        privileged: true
+        fsGroup: 1000
+      volumes:
+        - name: docker
+          hostPath:
+            path: /var/run/docker.sock
+        - name: docker-c
+          hostPath:
+            path: /usr/bin/docker
+  volumeClaimTemplates:
+    - metadata:
+        name: jenkins-home
+        # annotations:
+        #   volume.beta.kubernetes.io/storage-class: anything
+      spec:
+        accessModes: [ "ReadWriteOnce" ]
+        storageClassName: managed-nfs-storage
+        resources:
+          requests:
+            storage: 2Gi

@@ -1,0 +1,18 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: beta
+namePrefix: beta-
+
+commonLabels:
+  app: aut-admin
+  app.kubernetes.io/managed-by: kustomize
+  app.kubernetes.io/name: aut-admin
+
+resources:
+- config.yaml
+- service.yaml
+- aut-admin.yaml
+images:
+- name: ghcr.io/redstone1994/aut-admin
+  newTag: 76400b8

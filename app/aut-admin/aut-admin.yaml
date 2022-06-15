@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: aut-admin
+spec:
+  selector:
+    matchLabels:
+      run: aut-admin
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        run: aut-admin
+    spec:
+      containers:
+      - name: aut-admin
+        image: ghcr.io/redstone1994/aut-admin:eda3f9c
+        ports:
+        - containerPort: 8080
+        envFrom:
+          - configMapRef:
+              name: aut-admin-config
+      imagePullSecrets:
+        - name: github-token
+
+
