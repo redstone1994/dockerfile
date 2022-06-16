@@ -23,8 +23,8 @@ spec:
       serviceAccountName: jenkins
       containers:
         - name: jenkins
-          image: jenkins/jenkins:lts-alpine
-          imagePullPolicy: Always
+          image: ghcr.io/redstone1994/jenkins:latest
+          imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8080
             - containerPort: 50000
