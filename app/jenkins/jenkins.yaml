@@ -53,10 +53,8 @@ spec:
               mountPath: /var/jenkins_home
             - name: docker
               mountPath: /var/run/docker.sock
-              mountPropagation: Bidirectional
             - name: docker-c
               mountPath: /usr/bin/docker
-              mountPropagation: Bidirectional
           livenessProbe:
             httpGet:
               path: /login
