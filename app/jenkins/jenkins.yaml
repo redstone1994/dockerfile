@@ -70,8 +70,6 @@ spec:
             failureThreshold: 12 # ~2 minutes
           securityContext:
             privileged: true
-            runAsGroup: 1000
-            runAsUser: 1000
       securityContext:
         fsGroup: 1000
       volumes:
