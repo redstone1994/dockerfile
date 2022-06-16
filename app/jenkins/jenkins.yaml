@@ -24,13 +24,13 @@ spec:
       containers:
         - name: jenkins
           image: ghcr.io/redstone1994/jenkins:latest
-          imagePullPolicy: IfNotPresent
+          imagePullPolicy: Always
           ports:
             - containerPort: 8080
             - containerPort: 50000
           resources:
             limits:
-              cpu: 1000m
+              cpu: 2000m
               memory: 2Gi
             requests:
               cpu: 500m
@@ -53,8 +53,6 @@ spec:
               mountPath: /var/jenkins_home
             - name: docker
               mountPath: /var/run/docker.sock
-            - name: docker-c
-              mountPath: /usr/bin/docker
           livenessProbe:
             httpGet:
               path: /login
@@ -78,9 +76,6 @@ spec:
           hostPath:
             path: /var/run/docker.sock
             type: Socket
-        - name: docker-c
-          hostPath:
-            path: /usr/bin/docker
   volumeClaimTemplates:
     - metadata:
         name: jenkins-home
