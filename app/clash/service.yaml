@@ -26,3 +26,12 @@ spec:
       protocol: TCP
       targetPort: http
   type: ClusterIP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: clash-external
+  namespace: argocd
+spec:
+  type: ExternalName
+  externalName: clash.argocd.svc.cluster.local
