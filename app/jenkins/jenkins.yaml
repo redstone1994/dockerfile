@@ -45,9 +45,9 @@ spec:
               # value: -XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap -XX:MaxRAMFraction=1 -XshowSettings:vm -Dhudson.slaves.NodeProvisioner.initialDelay=0 -Dhudson.slaves.NodeProvisioner.MARGIN=50 -Dhudson.slaves.NodeProvisioner.MARGIN0=0.85
               value: -Xmx$(LIMITS_MEMORY)m -XshowSettings:vm -Dhudson.slaves.NodeProvisioner.initialDelay=0 -Dhudson.slaves.NodeProvisioner.MARGIN=50 -Dhudson.slaves.NodeProvisioner.MARGIN0=0.85
             - name: http_proxy
-              value: http://clash.argocd.svc.cluster.local:7893
+              value: http://clash.argocd.svc.cluster.local:7890
             - name: https_proxy
-              value: http://clash.argocd.svc.cluster.local:7893
+              value: http://clash.argocd.svc.cluster.local:7890
           volumeMounts:
             - name: jenkins-home
               mountPath: /var/jenkins_home
