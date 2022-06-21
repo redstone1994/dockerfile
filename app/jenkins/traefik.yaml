@@ -13,6 +13,5 @@ spec:
       services:
         - name: beta-jenkins
           port: 80
-          namespace: beta
   tls:
     certResolver: myresolver
