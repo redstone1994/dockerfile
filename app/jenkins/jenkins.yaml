@@ -30,8 +30,8 @@ spec:
             - containerPort: 50000
           resources:
             limits:
-              cpu: 2000m
-              memory: 2Gi
+              cpu: 1000m
+              memory: 1Gi
             requests:
               cpu: 500m
               memory: 500Mi
@@ -45,26 +45,14 @@ spec:
               # value: -XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap -XX:MaxRAMFraction=1 -XshowSettings:vm -Dhudson.slaves.NodeProvisioner.initialDelay=0 -Dhudson.slaves.NodeProvisioner.MARGIN=50 -Dhudson.slaves.NodeProvisioner.MARGIN0=0.85
               value: -Xmx$(LIMITS_MEMORY)m -XshowSettings:vm -Dhudson.slaves.NodeProvisioner.initialDelay=0 -Dhudson.slaves.NodeProvisioner.MARGIN=50 -Dhudson.slaves.NodeProvisioner.MARGIN0=0.85
             - name: http_proxy
-              value: http://clash.argocd.svc.cluster.local:7890
+              value: http://clash.argocd.svc.cluster.local:8001
             - name: https_proxy
-              value: http://clash.argocd.svc.cluster.local:7890
-            - name: MY_POD_NAME
-              valueFrom:
-                fieldRef:
-                  fieldPath: metadata.name
-            - name: MY_POD_NAMESPACE
-              valueFrom:
-                fieldRef:
-                  fieldPath: metadata.namespace
-            - name: MY_POD_IP
-              valueFrom:
-                fieldRef:
-                  fieldPath: status.podIP
+              value: http://clash.argocd.svc.cluster.local:8001
           volumeMounts:
             - name: jenkins-home
               mountPath: /var/jenkins_home
-#            - name: docker
-#              mountPath: /var/run/docker.sock
+            - name: docker
+              mountPath: /var/run/docker.sock
           livenessProbe:
             httpGet:
               path: /login
@@ -83,11 +71,11 @@ spec:
             privileged: true
       securityContext:
         fsGroup: 1000
-#      volumes:
-#        - name: docker
-#          hostPath:
-#            path: /var/run/docker.sock
-#            type: Socket
+      volumes:
+        - name: docker
+          hostPath:
+            path: /var/run/docker.sock
+            type: Socket
   volumeClaimTemplates:
     - metadata:
         name: jenkins-home
