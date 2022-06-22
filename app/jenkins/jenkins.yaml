@@ -79,8 +79,6 @@ spec:
             initialDelaySeconds: 60
             timeoutSeconds: 5
             failureThreshold: 12 # ~2 minutes
-          securityContext:
-            privileged: true
       securityContext:
         fsGroup: 1000
 #      volumes:
