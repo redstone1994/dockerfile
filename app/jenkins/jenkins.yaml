@@ -30,8 +30,8 @@ spec:
             - containerPort: 50000
           resources:
             limits:
-              cpu: 2000m
-              memory: 2Gi
+              cpu: 1000m
+              memory: 1Gi
             requests:
               cpu: 500m
               memory: 500Mi
@@ -48,23 +48,11 @@ spec:
               value: http://clash.argocd.svc.cluster.local:7890
             - name: https_proxy
               value: http://clash.argocd.svc.cluster.local:7890
-            - name: MY_POD_NAME
-              valueFrom:
-                fieldRef:
-                  fieldPath: metadata.name
-            - name: MY_POD_NAMESPACE
-              valueFrom:
-                fieldRef:
-                  fieldPath: metadata.namespace
-            - name: MY_POD_IP
-              valueFrom:
-                fieldRef:
-                  fieldPath: status.podIP
           volumeMounts:
             - name: jenkins-home
               mountPath: /var/jenkins_home
-#            - name: docker
-#              mountPath: /var/run/docker.sock
+            - name: docker
+              mountPath: /var/run/docker.sock
           livenessProbe:
             httpGet:
               path: /login
@@ -81,11 +69,11 @@ spec:
             failureThreshold: 12 # ~2 minutes
       securityContext:
         fsGroup: 1000
-#      volumes:
-#        - name: docker
-#          hostPath:
-#            path: /var/run/docker.sock
-#            type: Socket
+      volumes:
+        - name: docker
+          hostPath:
+            path: /var/run/docker.sock
+            type: Socket
   volumeClaimTemplates:
     - metadata:
         name: jenkins-home
