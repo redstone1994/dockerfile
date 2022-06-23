@@ -36,3 +36,4 @@ jobs:
           context: gradle-android-6.5-360/.
           push: true
           tags: ${{ env.REGISTRY_ALI }}/${{ env.ALI_DOCKER_SPACE}}/${{ env.IMAGE_NAME }}:gradle-android-6.5-360
+          github-token: ${{ env.ALI_DOCKER_TOKEN }}
