@@ -37,7 +37,6 @@ RUN set -o errexit -o nounset \
     && rm -rf gradle.zip \
     && mv "gradle-${GRADLE_VERSION}" "/opt/"
 
-
 RUN set -o errexit -o nounset \
     && wget --no-check-certificate --no-verbose --output-document=sdk-tools-linux-4333796.zip "https://dl.google.com/android/repository/sdk-tools-linux-4333796.zip" \
     && unzip -q sdk-tools-linux-4333796.zip\
