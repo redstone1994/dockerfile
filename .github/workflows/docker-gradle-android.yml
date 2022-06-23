@@ -20,20 +20,29 @@ jobs:
       - name: Docker Login
         uses: docker/login-action@v1.12.0
         with:
-          registry: ${{ env.REGISTRY }}
-          username: ${{ github.repository_owner }}
-          password: ${{ secrets.GITHUB_TOKEN }}
+          registry: ${{ env.REGISTRY_ALI }}
+          username: ${{ env.ALI_DOCKER_USER }}
+          password: ${{ secrets.ALI_DOCKER_TOKEN }}
           logout: false
+
       - name: Build and push ghcr
         uses: docker/build-push-action@v3.0.0
         with:
           context: gradle-android-6.5-360/.
           push: true
           tags: ${{ env.REGISTRY }}/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}:gradle-android-6.5-360
+          
+      - name: Docker Login
+        uses: docker/login-action@v1.12.0
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+          logout: false
+          
       - name: Build and push ali
         uses: docker/build-push-action@v3.0.0
         with:
           context: gradle-android-6.5-360/.
           push: true
           tags: ${{ env.REGISTRY_ALI }}/${{ env.ALI_DOCKER_SPACE}}/${{ env.IMAGE_NAME }}:gradle-android-6.5-360
-          github-token: ${{ env.ALI_DOCKER_TOKEN }}
