@@ -44,7 +44,6 @@ RUN set -o errexit -o nounset \
     && mkdir -p /opt/android-sdk-linux \
     && mv "tools" "/opt/android-sdk-linux/"
 
-
 #ENV ANDROID_HOME /opt/android-sdk-linux
 #ENV PATH ${ANDROID_HOME}:$PATH
 ENV ANDROID_SDK_ROOT /opt/android-sdk-linux
