@@ -3,7 +3,7 @@ LABEL maintainer="leejc1994@gmail.com"
 
 CMD ["gradle"]
 VOLUME /root/.gradle
-WORKDIR /home/gradle
+WORKDIR /root
 
 #禁止tzdata安装时交互
 ENV DEBIAN_FRONTEND noninteractive
@@ -43,6 +43,7 @@ RUN set -o errexit -o nounset \
     && rm -rf sdk-tools-linux-4333796.zip \
     && mkdir -p /opt/android-sdk-linux \
     && mv "tools" "/opt/android-sdk-linux/"
+
 
 #ENV ANDROID_HOME /opt/android-sdk-linux
 #ENV PATH ${ANDROID_HOME}:$PATH
