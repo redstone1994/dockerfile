@@ -8,6 +8,8 @@ on:
 env:
   REGISTRY: ghcr.io
   IMAGE_NAME: gradle-android-6.5-360
+  REGISTRY_ALI: registry.cn-beijing.aliyuncs.com
+  ALI_DOCKER_SPACE: ljc-k8s
 
 jobs:
   build:
@@ -23,8 +25,14 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
           logout: false
       - name: Build and push
-        uses: docker/build-push-action@v2
+        uses: docker/build-push-action@v3.0.0
         with:
           context: gradle-android-6.5-360/.
           push: true
-          tags: ${{ env.REGISTRY }}/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}:latest
+          tags: ${{ env.REGISTRY }}/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}:gradle-android-6.5-360
+      - name: Build and push
+        uses: docker/build-push-action@v3.0.0
+        with:
+          context: gradle-android-6.5-360/.
+          push: true
+          tags: ${{ env.REGISTRY_ALI }}/${{ env.ALI_DOCKER_SPACE}}/${{ env.IMAGE_NAME }}:gradle-android-6.5-360
