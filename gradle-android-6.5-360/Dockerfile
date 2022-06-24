@@ -59,11 +59,9 @@ ENV ANDROID_SDK_ROOT /opt/android-sdk-linux
 RUN set -o errexit -o nounset \
     && wget --no-check-certificate --no-verbose --output-document=commandlinetools-linux.zip "https://dl.google.com/android/repository/commandlinetools-linux-8512546_latest.zip" \
     && unzip -q commandlinetools-linux.zip \
-    && rm -rf commandlinetools-linux.zip \
+    && rm commandlinetools-linux.zip \
     && mkdir -p ${ANDROID_SDK_ROOT}/cmdline-tools/latest \
-    && mv "cmdline-tools/*" "/opt/android-sdk-linux/cmdline-tools/latest"
-
-
+    && mv cmdline-tools/* /opt/android-sdk-linux/cmdline-tools/latest
 
 #ENV ANDROID_HOME /opt/android-sdk-linux
 #ENV PATH ${ANDROID_HOME}:$PATH
