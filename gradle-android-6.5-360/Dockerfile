@@ -46,7 +46,7 @@ RUN set -o errexit -o nounset \
     && echo "${GRADLE_DOWNLOAD_SHA256} *gradle.zip" | sha256sum -c - \
     \
     && echo "Installing Gradle" \
-    && unzip gradle.zip \
+    && unzip -q gradle.zip \
     && rm gradle.zip \
     && mv "gradle-${GRADLE_VERSION}" "${GRADLE_HOME}/" \
     && ln -s "${GRADLE_HOME}/bin/gradle" /usr/bin/gradle \
@@ -58,7 +58,7 @@ ENV ANDROID_SDK_ROOT /opt/android-sdk-linux
 
 RUN set -o errexit -o nounset \
     && wget --no-check-certificate --no-verbose --output-document=commandlinetools-linux.zip "https://dl.google.com/android/repository/commandlinetools-linux-8512546_latest.zip" \
-    && unzip -q commandlinetools-linux.zip\
+    && unzip -q commandlinetools-linux.zip \
     && rm -rf commandlinetools-linux.zip \
     && mkdir -p ${ANDROID_SDK_ROOT}/cmdline-tools/latest \
     && mv "cmdline-tools/*" "/opt/android-sdk-linux/cmdline-tools/latest"
