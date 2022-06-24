@@ -1,57 +1,76 @@
-FROM adoptopenjdk:11-jdk-hotspot
+FROM eclipse-temurin:11-jdk-alpine
 LABEL maintainer="leejc1994@gmail.com"
 
 CMD ["gradle"]
-VOLUME /root/.gradle
 
-#禁止tzdata安装时交互
-ENV DEBIAN_FRONTEND noninteractive
+ENV GRADLE_HOME /opt/gradle
 
-RUN apt-get update \
-    && apt-get install --yes --no-install-recommends \
-        fontconfig \
-        unzip \
-        wget \
-        git \
-        openssh-client \
-        tzdata \
-    && rm -rf /var/lib/apt/lists/*
+RUN set -o errexit -o nounset \
+    && echo "Adding gradle user and group" \
+    && addgroup --system --gid 1000 gradle \
+    && adduser --system --ingroup gradle --uid 1000 --shell /bin/ash gradle \
+    && mkdir /home/gradle/.gradle \
+    && chown -R gradle:gradle /home/gradle \
+    \
+    && echo "Symlinking root Gradle cache to gradle Gradle cache" \
+    && ln -s /home/gradle/.gradle /root/.gradle
+
+VOLUME /home/gradle/.gradle
+
+WORKDIR /home/gradle
 
 
-COPY jiagu /opt/
-
-RUN chmod +x -R /opt/java/bin/
-
+#COPY jiagu /opt/
+#RUN chmod +x -R /opt/java/bin/
 ENV TZ=Asia/Shanghai
-RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
-RUN dpkg-reconfigure -f noninteractive tzdata
+
+RUN set -o errexit -o nounset \
+    && echo "Installing VCSes" \
+    && apk add --no-cache \
+      git \
+      git-lfs \
+      tzdata \
+      uzip \
+    \
+    && ln -sf /usr/share/zoneinfo/${TZ} /etc/localtime \
+    && echo ${TZ} > /etc/timezone \
 
 ENV GRADLE_VERSION 7.0.2
-ENV GRADLE_HOME /opt/gradle-${GRADLE_VERSION}
-ENV PATH ${GRADLE_HOME}/bin:$PATH
+ARG GRADLE_DOWNLOAD_SHA256=dccda8aa069563c8ba2f6cdfd0777df0e34a5b4d15138ca8b9757e94f4e8a8cb
+RUN set -o errexit -o nounset \
+    && echo "Downloading Gradle" \
+    && wget --no-verbose --output-document=gradle.zip "https://services.gradle.org/distributions/gradle-${GRADLE_VERSION}-bin.zip" \
+    \
+    && echo "Checking download hash" \
+    && echo "${GRADLE_DOWNLOAD_SHA256} *gradle.zip" | sha256sum -c - \
+    \
+    && echo "Installing Gradle" \
+    && unzip gradle.zip \
+    && rm gradle.zip \
+    && mv "gradle-${GRADLE_VERSION}" "${GRADLE_HOME}/" \
+    && ln -s "${GRADLE_HOME}/bin/gradle" /usr/bin/gradle \
+    \
+    && echo "Testing Gradle installation" \
+    && gradle --version
+
+ENV ANDROID_SDK_ROOT /opt/android-sdk-linux
 
 RUN set -o errexit -o nounset \
-    && wget --no-check-certificate --no-verbose --output-document=gradle.zip "https://services.gradle.org/distributions/gradle-${GRADLE_VERSION}-bin.zip" \
-    && unzip -q gradle.zip \
-    && rm -rf gradle.zip \
-    && mv "gradle-${GRADLE_VERSION}" "/opt/"
+    && wget --no-check-certificate --no-verbose --output-document=commandlinetools-linux.zip "https://dl.google.com/android/repository/commandlinetools-linux-8512546_latest.zip" \
+    && unzip -q commandlinetools-linux.zip\
+    && rm -rf commandlinetools-linux.zip \
+    && mkdir -p ${ANDROID_SDK_ROOT}/cmdline-tools/latest \
+    && mv "cmdline-tools/*" "/opt/android-sdk-linux/cmdline-tools/latest"
 
-RUN set -o errexit -o nounset \
-    && wget --no-check-certificate --no-verbose --output-document=sdk-tools-linux-4333796.zip "https://dl.google.com/android/repository/sdk-tools-linux-4333796.zip" \
-    && unzip -q sdk-tools-linux-4333796.zip\
-    && rm -rf sdk-tools-linux-4333796.zip \
-    && mkdir -p /opt/android-sdk-linux \
-    && mv "tools" "/opt/android-sdk-linux/"
 
 
 #ENV ANDROID_HOME /opt/android-sdk-linux
 #ENV PATH ${ANDROID_HOME}:$PATH
-ENV ANDROID_SDK_ROOT /opt/android-sdk-linux
+
 ENV PATH ${ANDROID_SDK_ROOT}:$PATH
+ENV PATH ${ANDROID_SDK_ROOT}/cmdline-tools/latest/bin:$PATH
 ENV PATH ${ANDROID_SDK_ROOT}/tools:$PATH
 ENV PATH ${ANDROID_SDK_ROOT}/tools/bin:$PATH
 ENV PATH ${ANDROID_SDK_ROOT}/platform-tools:$PATH
 
 RUN echo y | sdkmanager "platforms;android-30" "build-tools;30.0.2" "platform-tools"
-WORKDIR /root
-CMD ["gradle"]
