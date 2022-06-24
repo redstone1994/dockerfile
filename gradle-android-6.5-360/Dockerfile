@@ -3,7 +3,6 @@ LABEL maintainer="leejc1994@gmail.com"
 
 CMD ["gradle"]
 VOLUME /root/.gradle
-WORKDIR /root
 
 #禁止tzdata安装时交互
 ENV DEBIAN_FRONTEND noninteractive
@@ -54,3 +53,5 @@ ENV PATH ${ANDROID_SDK_ROOT}/tools/bin:$PATH
 ENV PATH ${ANDROID_SDK_ROOT}/platform-tools:$PATH
 
 RUN echo y | sdkmanager "platforms;android-30" "build-tools;30.0.2" "platform-tools"
+WORKDIR /root
+CMD ["gradle"]
