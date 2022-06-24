@@ -30,7 +30,7 @@ RUN set -o errexit -o nounset \
     && apk add --no-cache \
       git \
       tzdata \
-      uzip \
+      unzip \
     \
     && cp /usr/share/zoneinfo/${TZ} /etc/localtime \
     && echo ${TZ} > /etc/timezone \
