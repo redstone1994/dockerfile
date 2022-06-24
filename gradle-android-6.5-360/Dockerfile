@@ -71,7 +71,7 @@ RUN set -o errexit -o nounset \
 ENV PATH ${ANDROID_SDK_ROOT}:$PATH
 ENV PATH ${ANDROID_SDK_ROOT}/cmdline-tools/latest/bin:$PATH
 ENV PATH ${ANDROID_SDK_ROOT}/tools:$PATH
-ENV PATH ${ANDROID_SDK_ROOT}/tools/bin:$PATH
+#ENV PATH ${ANDROID_SDK_ROOT}/tools/bin:$PATH
 ENV PATH ${ANDROID_SDK_ROOT}/platform-tools:$PATH
 
 RUN echo y | sdkmanager "platforms;android-30" "build-tools;30.0.2" "platform-tools"
