@@ -20,20 +20,21 @@ VOLUME /home/gradle/.gradle
 WORKDIR /home/gradle
 
 
-#COPY jiagu /opt/
+#COPY jiagu /opt
 #RUN chmod +x -R /opt/java/bin/
+
 ENV TZ=Asia/Shanghai
 
 RUN set -o errexit -o nounset \
     && echo "Installing VCSes" \
     && apk add --no-cache \
       git \
-      git-lfs \
       tzdata \
       uzip \
     \
-    && ln -sf /usr/share/zoneinfo/${TZ} /etc/localtime \
+    && cp /usr/share/zoneinfo/${TZ} /etc/localtime \
     && echo ${TZ} > /etc/timezone \
+    && apk del tzdata
 
 ENV GRADLE_VERSION 7.0.2
 ARG GRADLE_DOWNLOAD_SHA256=dccda8aa069563c8ba2f6cdfd0777df0e34a5b4d15138ca8b9757e94f4e8a8cb
