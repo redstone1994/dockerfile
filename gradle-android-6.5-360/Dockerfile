@@ -1,4 +1,4 @@
-FROM adoptopenjdk:8-jdk-hotspot
+FROM adoptopenjdk:11-jdk-hotspot
 LABEL maintainer="leejc1994@gmail.com"
 
 CMD ["gradle"]
