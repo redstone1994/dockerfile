@@ -77,4 +77,4 @@ ENV PATH ${ANDROID_SDK_ROOT}/tools:$PATH
 #ENV PATH ${ANDROID_SDK_ROOT}/tools/bin:$PATH
 ENV PATH ${ANDROID_SDK_ROOT}/platform-tools:$PATH
 
-RUN echo y | sdkmanager "platforms;android-30" "build-tools;30.0.2" "platform-tools"
+RUN echo y | sdkmanager "platforms;android-30" "platforms;android-32" "build-tools;30.0.2" "build-tools;32.0.0" "platform-tools"
