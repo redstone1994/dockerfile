@@ -36,6 +36,11 @@ RUN set -o errexit -o nounset \
     && echo ${TZ} > /etc/timezone \
     && apk del tzdata
 
+RUN wget -q -O /etc/apk/keys/sgerrand.rsa.pub https://alpine-pkgs.sgerrand.com/sgerrand.rsa.pub \
+    && wget https://github.com/sgerrand/alpine-pkg-glibc/releases/download/2.35-r0/glibc-2.35-r0.apk \
+    && apk add glibc-2.35-r0.apk \
+    && rm glibc-2.35-r0.apk
+
 ENV GRADLE_VERSION 7.0.2
 ARG GRADLE_DOWNLOAD_SHA256=0e46229820205440b48a5501122002842b82886e76af35f0f3a069243dca4b3c
 RUN set -o errexit -o nounset \
