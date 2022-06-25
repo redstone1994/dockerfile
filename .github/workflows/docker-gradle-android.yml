@@ -30,7 +30,7 @@ jobs:
         with:
           context: gradle-android-6.5-360/.
           push: true
-          tags: ${{ env.REGISTRY }}/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}:gradle-android-7.0.2
+          tags: ${{ env.REGISTRY }}/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}:gradle-7.0.2-android-jdk11
           
       - name: Docker Login ali
         uses: docker/login-action@v1.12.0
@@ -44,4 +44,4 @@ jobs:
         with:
           context: gradle-android-6.5-360/.
           push: true
-          tags: ${{ env.REGISTRY_ALI }}/${{ env.ALI_DOCKER_SPACE}}/${{ env.IMAGE_NAME }}:gradle-android-jdk11-7.0.2
+          tags: ${{ env.REGISTRY_ALI }}/${{ env.ALI_DOCKER_SPACE}}/${{ env.IMAGE_NAME }}:gradle-7.0.2-android-jdk11

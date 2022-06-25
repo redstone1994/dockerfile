@@ -1,4 +1,4 @@
-FROM eclipse-temurin:11-jdk-alpine
+FROM eclipse-temurin:11-jdk-jammy
 LABEL maintainer="leejc1994@gmail.com"
 
 CMD ["gradle"]
@@ -24,22 +24,22 @@ WORKDIR /home/gradle
 #RUN chmod +x -R /opt/java/bin/
 
 ENV TZ=Asia/Shanghai
+#禁止tzdata安装时交互
+ENV DEBIAN_FRONTEND noninteractive
 
 RUN set -o errexit -o nounset \
-    && echo "Installing VCSes" \
-    && apk add --no-cache \
-      git \
-      tzdata \
-      unzip \
-    \
+    && apt-get update \
+    && apt-get install --yes --no-install-recommends \
+        unzip \
+        wget \
+        \
+        bzr \
+        git \
+        openssh-client \
+    && rm --recursive --force /var/lib/apt/lists/* \
     && cp /usr/share/zoneinfo/${TZ} /etc/localtime \
     && echo ${TZ} > /etc/timezone \
-    && apk del tzdata
-
-RUN wget -q -O /etc/apk/keys/sgerrand.rsa.pub https://alpine-pkgs.sgerrand.com/sgerrand.rsa.pub \
-    && wget https://github.com/sgerrand/alpine-pkg-glibc/releases/download/2.35-r0/glibc-2.35-r0.apk \
-    && apk add glibc-2.35-r0.apk \
-    && rm glibc-2.35-r0.apk
+    && dpkg-reconfigure -f noninteractive tzdata
 
 ENV GRADLE_VERSION 7.0.2
 ARG GRADLE_DOWNLOAD_SHA256=0e46229820205440b48a5501122002842b82886e76af35f0f3a069243dca4b3c
