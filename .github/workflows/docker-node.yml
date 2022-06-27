@@ -8,6 +8,8 @@ on:
 env:
   REGISTRY: ghcr.io
   IMAGE_NAME: node
+  REGISTRY_ALI: registry.cn-beijing.aliyuncs.com
+  ALI_DOCKER_SPACE: ljc-k8s
 
 jobs:
   build:
@@ -28,3 +30,16 @@ jobs:
           context: jenkins-lts-alpine/.
           push: true
           tags: ${{ env.REGISTRY }}/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}:16-alpine3.15
+      - name: Docker Login ali
+        uses: docker/login-action@v1.12.0
+        with:
+          registry: ${{ env.REGISTRY_ALI }}
+          username: ${{ secrets.ALI_DOCKER_USER }}
+          password: ${{ secrets.ALI_DOCKER_TOKEN }}
+          logout: false
+      - name: Build and push ali
+        uses: docker/build-push-action@v3.0.0
+        with:
+          context: gradle-android-6.5-360/.
+          push: true
+          tags: ${{ env.REGISTRY_ALI }}/${{ env.ALI_DOCKER_SPACE}}/${{ env.IMAGE_NAME }}:16-alpine3.15
