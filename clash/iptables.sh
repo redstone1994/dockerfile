@@ -1,5 +1,7 @@
 #!/usr/bin/env sh
-
+###
+###  https://mritd.com/2022/02/06/clash-tproxy/
+###
 set -ex
 
 # ENABLE ipv4 forward
@@ -25,8 +27,8 @@ iptables -t mangle -A clash -d 224.0.0.0/4 -j RETURN
 iptables -t mangle -A clash -d 240.0.0.0/4 -j RETURN
 
 # 其他所有流量转向到 7893 端口，并打上 mark
-iptables -t mangle -A clash -p tcp -j TPROXY --on-port 7894 --tproxy-mark 666
-iptables -t mangle -A clash -p udp -j TPROXY --on-port 7894 --tproxy-mark 666
+iptables -t mangle -A clash -p tcp -j TPROXY --on-port 7893 --tproxy-mark 666
+iptables -t mangle -A clash -p udp -j TPROXY --on-port 7893 --tproxy-mark 666
 
 # 转发所有 DNS 查询到 1053 端口
 # 此操作会导致所有 DNS 请求全部返回虚假 IP(fake ip 198.18.0.1/16)
@@ -61,15 +63,11 @@ iptables -t mangle -A clash_local -p tcp -j MARK --set-mark 666
 iptables -t mangle -A clash_local -p udp -j MARK --set-mark 666
 
 # 跳过 clash 程序本身发出的流量, 防止死循环(clash 程序需要使用 "clash" 用户启动)
-#iptables -t mangle -A OUTPUT -p tcp -m owner --uid-owner clash -j RETURN
-#iptables -t mangle -A OUTPUT -p udp -m owner --uid-owner clash -j RETURN
+iptables -t mangle -A OUTPUT -p tcp -m owner --uid-owner clash -j RETURN
+iptables -t mangle -A OUTPUT -p udp -m owner --uid-owner clash -j RETURN
 
 # 让本机发出的流量跳转到 clash_local
 # clash_local 链会为本机流量打 mark, 打过 mark 的流量会重新回到 PREROUTING 上
 iptables -t mangle -A OUTPUT -j clash_local
 
-# 修复 ICMP(ping)
-# 这并不能保证 ping 结果有效(clash 等不支持转发 ICMP), 只是让它有返回结果而已
-# --to-destination 设置为一个可达的地址即可
-#sysctl -w net.ipv4.conf.all.route_localnet=1
-#iptables -t nat -A PREROUTING -p icmp -d 198.18.0.0/16 -j DNAT --to-destination 127.0.0.1
+exec su-exec clash /home/clash/clash -d /home/clash/.config/clash
