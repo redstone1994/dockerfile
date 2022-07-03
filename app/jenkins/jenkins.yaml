@@ -53,6 +53,7 @@ spec:
               mountPath: /var/jenkins_home
             - name: docker
               mountPath: /var/run/docker.sock
+
           livenessProbe:
             httpGet:
               path: /login
@@ -67,13 +68,16 @@ spec:
             initialDelaySeconds: 60
             timeoutSeconds: 5
             failureThreshold: 12 # ~2 minutes
+          securityContext:
+            privileged: true
       securityContext:
         fsGroup: 1000
       volumes:
         - name: docker
           hostPath:
             path: /var/run/docker.sock
-            type: Socket
+            type: File
+
   volumeClaimTemplates:
     - metadata:
         name: jenkins-home
