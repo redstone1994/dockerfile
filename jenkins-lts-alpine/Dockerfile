@@ -12,9 +12,9 @@ RUN apk upgrade  && apk add --no-cache docker && \
     chmod +x /usr/local/bin/kubectl
 
 
-RUN apk add --no-cache --virtual build-deps shadow util-linux && \
-        usermod -aG docker jenkins &&  \
-        newgrp docker && \
-        apk del build-deps
+RUN apk add --no-cache --virtual build-deps shadow && \
+    groupadd docker && \
+    usermod -aG docker jenkins &&  \
+    apk del build-deps
 
 USER jenkins
