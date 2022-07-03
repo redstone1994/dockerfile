@@ -4,12 +4,16 @@ LABEL maintainer="leejc1994@gmail.com"
 USER root
 ARG kubev=v1.23.1
 
-RUN apk upgrade  && apk add --no-cache shadow docker&& \
+RUN apk upgrade  && apk add --no-cache docker && \
     cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && \
     fc-cache && \
     rm -rf /root/.cache && rm -rf /var/cache/apk/* && \
     curl -Lo /usr/local/bin/kubectl https://storage.googleapis.com/kubernetes-release/release/${kubev}/bin/linux/amd64/kubectl && \
-    chmod +x /usr/local/bin/kubectl 
+    chmod +x /usr/local/bin/kubectl \
 
-RUN usermod -aG docker jenkins
+
+RUN apk add --no-cache --virtual build-deps shadow util-linux && \
+        usermod -aG docker jenkins && newgrp docker && \
+        apk del build-deps \
+
 USER jenkins
