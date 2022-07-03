@@ -13,7 +13,6 @@ RUN apk upgrade  && apk add --no-cache docker && \
 
 
 RUN apk add --no-cache --virtual build-deps shadow && \
-    groupadd docker && \
     usermod -aG docker jenkins &&  \
     apk del build-deps
 
