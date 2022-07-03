@@ -9,11 +9,12 @@ RUN apk upgrade  && apk add --no-cache docker && \
     fc-cache && \
     rm -rf /root/.cache && rm -rf /var/cache/apk/* && \
     curl -Lo /usr/local/bin/kubectl https://storage.googleapis.com/kubernetes-release/release/${kubev}/bin/linux/amd64/kubectl && \
-    chmod +x /usr/local/bin/kubectl \
+    chmod +x /usr/local/bin/kubectl
 
 
 RUN apk add --no-cache --virtual build-deps shadow util-linux && \
-        usermod -aG docker jenkins && newgrp docker && \
-        apk del build-deps \
+        usermod -aG docker jenkins &&  \
+        newgrp docker && \
+        apk del build-deps
 
 USER jenkins
