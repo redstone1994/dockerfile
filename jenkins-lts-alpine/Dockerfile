@@ -4,7 +4,7 @@ LABEL maintainer="leejc1994@gmail.com"
 USER root
 ARG kubev=v1.23.1
 
-RUN apk upgrade  && apk add --no-cache docker && \
+RUN apk upgrade  && apk add --no-cache docker sudo && \
     cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && \
     fc-cache && \
     rm -rf /root/.cache && rm -rf /var/cache/apk/* && \
