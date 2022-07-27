@@ -5,9 +5,9 @@ metadata:
   labels:
     app: aut-admin-config
 data:
-  redis_host: "beta-redis-service"
+  redis_host: "redis-service"
   redis_port: "6379"
-  pg_host: "beta-postgres-service"
+  pg_host: "postgres-service"
   pg_port: "5432"
   password: "Lee123"
   pg_user: "lee"
