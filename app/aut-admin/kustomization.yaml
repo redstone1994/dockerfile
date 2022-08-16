@@ -15,4 +15,4 @@ resources:
 - aut-admin.yaml
 images:
 - name: ghcr.io/redstone1994/aut-admin
-  newTag: 1c7143a
+  newTag: 67f6162
