@@ -8,6 +8,7 @@ metadata:
 
 spec:
   type: NodePort
+  clusterIP: None
   ports:
     - port: 6379
       name: tcp
