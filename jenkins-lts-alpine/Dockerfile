@@ -18,4 +18,5 @@ RUN apk add --no-cache --virtual build-deps shadow && \
     usermod -aG docker jenkins &&  \
     apk del build-deps
 
+
 USER jenkins
