@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: clash
-  namespace: argocd
+  namespace: devops
 spec:
   revisionHistoryLimit: 2
   selector:
@@ -13,32 +13,52 @@ spec:
       labels:
         app: clash
     spec:
+      initContainers:
+        - name: iptables
+          image: soarinferret/iptablesproxy
+          command:
+            - sysctl -w net.ipv4.ip_forward=1
+            - ip rule add fwmark 1 table 100
+            - ip route add local 0.0.0.0/0 dev lo table 100
+            - iptables -t mangle -A clash -d 0.0.0.0/8 -j RETURN
+            - iptables -t mangle -A clash -d 10.0.0.0/8 -j RETURN
+            - iptables -t mangle -A clash -d 127.0.0.0/8 -j RETURN
+            - iptables -t mangle -A clash -d 169.254.0.0/16 -j RETURN
+            - iptables -t mangle -A clash -d 172.16.0.0/12 -j RETURN
+            - iptables -t mangle -A clash -d 192.168.0.0/16 -j RETURN
+            - iptables -t mangle -A clash -d 224.0.0.0/4 -j RETURN
+            - iptables -t mangle -A clash -d 240.0.0.0/4 -j RETURN
+            - iptables -t mangle -A clash -p udp -j TPROXY --on-port 7893 --tproxy-mark 1
+            - iptables -t mangle -A clash -p tcp -j TPROXY --on-port 7893 --tproxy-mark 1
+            - iptables -t mangle -A PREROUTING -j clash
+
       containers:
         - name: clash
           image: dreamacro/clash:latest
           ports:
-            - containerPort: 1081
-              name: socks5
-              protocol: TCP
-            - containerPort: 9280
-              name: redit
-              protocol: TCP
-            - containerPort: 8001
+            - containerPort: 7890
               name: http
+              protocol: TCP
+            - containerPort: 7893
+              name: tproxy
               protocol: TCP
             - containerPort: 9090
               name: controller
               protocol: TCP
           volumeMounts:
             - mountPath: /root/.config/clash/config.yaml
-              name: conf
+              name: clash-conf
               subPath: config.yaml
-              readOnly: false
+              readOnly: true
+          securityContext:
+            capabilities:
+              add: [ "NET_ADMIN", "SYS_TIME" ]
+            privileged: true
           resources:
             requests:
               cpu: 100m
               memory: 100Mi
       volumes:
-        - configMap:
-            name: clash-conf
-          name: conf
+        - secret:
+            secretName: clash-conf
+          name: clash-conf

@@ -19,6 +19,15 @@ spec:
       containers:
         - name: redis
           image: redis:6.2.6-alpine
+          env:
+            - name: POD_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+            - name: POD_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.podIP
           command:
             - "sh"
             - "-c"
