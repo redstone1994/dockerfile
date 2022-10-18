@@ -1,3 +1,3 @@
 FROM alpine:latest
 
-RUN apk add --no-cache ca-certificates iptables
+RUN apk add --no-cache ca-certificates iptables iproute2 curl
