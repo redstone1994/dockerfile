@@ -32,7 +32,8 @@ spec:
             - iptables -t mangle -A clash -p udp -j TPROXY --on-port 7893 --tproxy-mark 1
             - iptables -t mangle -A clash -p tcp -j TPROXY --on-port 7893 --tproxy-mark 1
             - iptables -t mangle -A PREROUTING -j clash
-
+          securityContext:
+            privileged: true
       containers:
         - name: clash
           image: dreamacro/clash:latest
