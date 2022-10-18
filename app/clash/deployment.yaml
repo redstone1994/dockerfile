@@ -16,6 +16,7 @@ spec:
       initContainers:
         - name: iptables
           image: soarinferret/iptablesproxy
+          imagePullPolicy: IfNotPresent
           command:
             - sysctl -w net.ipv4.ip_forward=1
             - ip rule add fwmark 1 table 100

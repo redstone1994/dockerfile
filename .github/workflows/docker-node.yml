@@ -1,4 +1,4 @@
-name: build-jenkins
+name: build-node
 
 on:
   push:

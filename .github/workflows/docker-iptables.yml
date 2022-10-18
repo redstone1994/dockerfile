@@ -1,13 +1,13 @@
-name: build-docker
+name: build-iptables
 
 on:
   push:
     paths:
-      - 'docker/**'
+      - 'iptables/**'
 
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME: docker
+  IMAGE_NAME: iptables
 
 jobs:
   build:
@@ -25,6 +25,6 @@ jobs:
       - name: Build and push
         uses: docker/build-push-action@v2
         with:
-          context: docker/.
+          context: iptables/.
           push: true
           tags: ${{ env.REGISTRY }}/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}:latest
