@@ -2,7 +2,7 @@ FROM jenkins/jenkins:lts-alpine
 LABEL maintainer="leejc1994@gmail.com"
 
 USER root
-ARG kubev=v1.23.1
+ARG kubev=v1.22.15
 
 RUN apk upgrade  && apk add --no-cache docker sudo && \
     cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && \
