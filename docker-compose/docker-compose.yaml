@@ -1,0 +1,63 @@
+version: "3"
+services:
+  mysql:
+    image: mysql:8.1
+    container_name: mysql
+    network_mode: "host"
+    environment:
+      TZ: Asia/Shanghai
+      MYSQL_ROOT_PASSWORD: pwd
+      MYSQL_DATABASE: date
+      MYSQL_USER: user
+      MYSQL_PASSWORD: pwd
+    volumes:
+      - "./data:/var/lib/mysql"
+    command: ["--character-set-server=utf8mb4", "--collation-server=utf8mb4_unicode_ci"]
+    restart: always
+
+---
+version: "3"
+services:
+  redis:
+    image: redis:7
+    container_name: redis
+    network_mode: "host"
+    environment:
+      TZ: Asia/Shanghai
+    command: ["redis-server", "/etc/redis.conf"]
+    volumes:
+      - "./data:/data"
+      - "./redis.conf:/etc/redis.conf"
+    restart: always
+
+---
+version: "3"
+services:
+  rabbitmq:
+    image: rabbitmq:3.12
+    container_name: rabbitmq
+    network_mode: "host"
+    environment:
+      TZ: Asia/Shanghai
+      RABBITMQ_DEFAULT_USER: user
+      RABBITMQ_DEFAULT_PASS: pwd
+    volumes:
+      - "./data:/var/lib/rabbitmq"
+    restart: always
+
+---
+version: "3"
+services:
+  backend:
+    image: image:123
+    container_name: aaa
+    network_mode: "host"
+    environment:
+      TZ: Asia/Shanghai
+    env_file:
+      - ./dev-test.env
+    volumes:
+      - "./upload:/upload"
+    restart: always
+
+---
