@@ -12,6 +12,10 @@ FROM alpine:3.20
 RUN apk update && apk upgrade
 RUN apk add --update openssl libstdc++
 COPY --from=builder /build/telegram-bot-api/bin/telegram-bot-api /usr/bin/telegram-bot-api
+WORKDIR /app
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+ENTRYPOINT ["/entrypoint.sh"]
 
-
-CMD ["/usr/bin/telegram-bot-api","--api-id",$API_ID,"--api-hash",$API_HASH,"--local"]
+#ENTRYPOINT ["/usr/bin/telegram-bot-api"]
+#CMD ["--api-id",${API_ID},"--api-hash",${API_HASH},"--local"]
