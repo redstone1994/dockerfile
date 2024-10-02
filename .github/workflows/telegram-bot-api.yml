@@ -1,0 +1,30 @@
+name: telegram-bot-api
+
+on:
+  push:
+    paths:
+      - 'telegram-bot-api/**'
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: telegram-bot-api
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@4.2.0
+      - name: Docker Login
+        uses: docker/login-action@v3.3.0
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+          logout: false
+      - name: Build and push
+        uses: docker/build-push-action@v6.9.0
+        with:
+          context: telegram-bot-api/.
+          push: true
+          tags: ${{ env.REGISTRY }}/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}:v1
