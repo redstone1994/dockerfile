@@ -10,7 +10,8 @@ cmake --build . --target install
 
 FROM alpine:3.20
 RUN apk update && apk upgrade
-RUN apk add --update openssl libstdc++
+RUN apk add --update --no-cache openssl libstdc++
+RUN rm -rf /var/cache/apk/*
 COPY --from=builder /build/telegram-bot-api/bin/telegram-bot-api /usr/bin/telegram-bot-api
 WORKDIR /app
 COPY entrypoint.sh /entrypoint.sh
