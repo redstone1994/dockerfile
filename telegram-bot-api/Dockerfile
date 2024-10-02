@@ -13,4 +13,5 @@ RUN apk update && apk upgrade
 RUN apk add --update openssl libstdc++
 COPY --from=builder /build/telegram-bot-api/bin/telegram-bot-api /usr/bin/telegram-bot-api
 
+
 CMD ["/usr/bin/telegram-bot-api","--api-id",$API_ID,"--api-hash",$API_HASH,"--local"]
