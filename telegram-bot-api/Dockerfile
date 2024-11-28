@@ -7,7 +7,6 @@ cd telegram-bot-api && rm -rf build && mkdir build && cd build && \
 cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX:PATH=.. .. && \
 cmake --build . --target install
 
-
 FROM alpine:3.20
 RUN apk update && apk upgrade
 RUN apk add --update --no-cache openssl libstdc++
