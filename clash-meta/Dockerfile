@@ -25,4 +25,4 @@ COPY --from=builder /meta/clash /usr/local/bin/clash
 RUN apk add --no-cache ca-certificates tzdata iptables curl && \
     chmod +x /usr/local/bin/clash
 
-ENTRYPOINT ["/usr/local/bin/clash", "-d", "/etc/.clash.meta.d"]
+CMD ["/usr/local/bin/clash", "-d", "/etc/.clash.meta.d"]
