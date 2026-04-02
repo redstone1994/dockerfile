@@ -2,7 +2,7 @@ FROM golang:1.26.1-alpine AS builder
 
 ARG TAG
 
-ENV CGO_ENABLED=1
+ENV CGO_ENABLED=0
 
 RUN apk update && apk add --no-cache git && \
     git clone --single-branch --depth 1 -b ${TAG} https://github.com/MetaCubeX/Clash.Meta.git /meta && \
