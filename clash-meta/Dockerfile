@@ -1,4 +1,4 @@
-FROM golang:1.26.1-trixie as builder
+FROM golang:1.26.1-trixie AS builder
 
 ARG TAG
 
