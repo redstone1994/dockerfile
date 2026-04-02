@@ -1,12 +1,12 @@
 FROM golang:1.26.1-trixie as builder
 
-ARG TAG=meta
+ARG TAG
 
 ENV CGO_ENABLED=1
 
-RUN apt update && apt install -y git jq && \
+RUN apt update && apt install -y git && \
     git clone --single-branch --depth 1 -b ${TAG} https://github.com/MetaCubeX/Clash.Meta.git /meta && \
-    cd meta && \
+    cd /meta && \
     go build -tags with_gvisor -trimpath -ldflags "-s -w" -o clash
 
 
