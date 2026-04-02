@@ -10,6 +10,7 @@ on:
 
 env:
   IMAGE_NAME: ghcr.io/${{ github.repository_owner }}/clash-meta
+  REGISTRY: ghcr.io
 
 jobs:
   build:
